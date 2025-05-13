@@ -3,9 +3,9 @@ uvicorn[standard]==0.24.0
 python-multipart==0.0.6
 
 # Upgraded packages for compatibility
-sentence-transformers==2.2.2
-transformers==4.37.2
-huggingface-hub==0.20.3
+#sentence-transformers==2.2.2
+#transformers==4.37.2
+#huggingface-hub==0.20.3
 
 # Database and document processing
 chromadb==0.4.18
