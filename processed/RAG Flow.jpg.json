@@ -1,0 +1,12 @@
+{
+  "name": "RAG Flow.jpg",
+  "metadata": {
+    "format": "PNG",
+    "mode": "RGB",
+    "size": "(800, 323)",
+    "fileSize": 21521
+  },
+  "chunks": [
+    "Naive RAG Retrieval = ¥ Data Context + Query ——=») Model | Vector Database ( Large Language Answer Model"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "1746809965.710721",
+  "name": "hydrological-analysis-report-2025-05-08.pdf",
+  "type": "application/pdf",
+  "size": 7091008,
+  "content": "Hydrological Change Analysis Report\nGenerated: 08/05/2025, 15:13:51\nStudy Information\nStudy Area: Masuria, Poland\nData Source: sentinel-2\nDate Range: last-6-months\nSummary\nWater Bodies Detected\nTotal count: 19\nTotal area: 244.50 km\u00b2\nTotal perimeter: 62.27 km\nLargest water body: 146.70 km\u00b2\nAnalysis Parameters\nPreprocessing method: ndwi\nModel type: cnn\nDetection threshold: 0.67\nAdditional Data Sources Used\n- ERA5 Reanalysis\n- Polish Water Authority\nPage 1 of 4\nVisualizations\nTime Series Analysis\nFigure 2: Water area changes over time showing historical trends\nPage 2 of 4\nPage 3 of 4\nTime Series Data\nDate Water Area (km\u00b2)\n2024-11-08 320.55\n2024-12-08 324.13\n2025-01-08 325.80\n2025-02-08 331.94\n2025-03-08 334.30\n2025-04-08 333.05\nPage 4 of 4\n",
+  "metadata": {
+    "title": "",
+    "author": "",
+    "subject": "",
+    "pageCount": 4,
+    "fileSize": 7091008
+  },
+  "url": "/uploads/hydrological-analysis-report-2025-05-08.pdf",
+  "processedAt": "2025-05-09T18:59:25.713411",
+  "chunks": 1
+}

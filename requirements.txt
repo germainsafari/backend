@@ -1,0 +1,47 @@
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# Upgraded packages for compatibility
+sentence-transformers==2.2.2
+transformers==4.37.2
+huggingface-hub==0.20.3
+
+# Database and document processing
+chromadb==0.4.18
+PyPDF2==3.0.1
+python-docx==1.0.1
+pandas==2.1.1
+openpyxl==3.1.2
+python-pptx==0.6.21
+beautifulsoup4==4.12.2
+striprtf==0.0.26
+python-magic==0.4.27
+Pillow==10.1.0
+pytesseract==0.3.10
+tqdm==4.66.1
+
+# OpenAI and HTTP client dependencies
+openai==1.3.9
+httpx==0.24.1
+tenacity==8.2.3
+python-dotenv==1.0.0
+numpy==1.24.3
+tiktoken==0.5.2
+
+# Additional dependencies
+python-magic-bin==0.4.14; sys_platform == 'win32'
+
+
+certifi==2025.4.26
+charset-normalizer==3.4.2
+colorama==0.4.6
+filelock==3.18.0
+huggingface-hub==0.10.1
+idna==3.10
+packaging==25.0
+PyYAML==6.0.2
+requests==2.32.3
+tqdm==4.67.1
+typing_extensions==4.13.2
+urllib3==2.4.0
