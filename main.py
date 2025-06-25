@@ -182,6 +182,49 @@ def extract_text_from_txt(file_path: str) -> Dict[str, Any]:
     logger.info(f"TXT processing time: {time.time() - start_time:.2f}s")
     return {"text": text, "metadata": metadata}
 
+def extract_text_from_image(file_path: str) -> Dict[str, Any]:
+    """Extract text from image files using OCR."""
+    start_time = time.time()
+    try:
+        logger.info(f"Running OCR on image: {file_path}")
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"Image file not found: {file_path}")
+        # Open and preprocess image
+        img = Image.open(file_path)
+        # Convert to RGB if needed
+        if img.mode != 'RGB':
+            img = img.convert('RGB')
+        # Resize large images to improve OCR performance
+        max_size = 2000
+        if max(img.size) > max_size:
+            ratio = max_size / max(img.size)
+            new_size = tuple(int(dim * ratio) for dim in img.size)
+            img = img.resize(new_size, Image.Resampling.LANCZOS)
+        # Enhance image for better OCR
+        enhancer = ImageEnhance.Contrast(img)
+        img = enhancer.enhance(2.0)  # Increase contrast for better OCR
+        # Perform OCR with improved settings
+        custom_config = r'--oem 3 --psm 6 -c preserve_interword_spaces=1'
+        try:
+            text = pytesseract.image_to_string(img, config=custom_config)
+        except Exception as ocr_error:
+            logger.error(f"OCR failed: {ocr_error}")
+            text = "[OCR failed to extract text]"
+        if not text.strip():
+            logger.warning(f"No text extracted from image: {file_path}")
+            text = "[No text content found in image]"
+        metadata = {
+            "format": img.format,
+            "mode": img.mode,
+            "size": str(img.size),
+            "fileSize": os.path.getsize(file_path)
+        }
+        logger.info(f"Image processing time: {time.time() - start_time:.2f}s")
+        return {"text": text, "metadata": metadata}
+    except Exception as e:
+        logger.error(f"Error processing image {file_path}: {str(e)}", exc_info=True)
+        return {"text": "[Error processing image]", "metadata": {"fileSize": os.path.getsize(file_path) if os.path.exists(file_path) else 0}}
+
 # ... (other extractors unchanged, see your original file)
 # You can keep your other extractors as-is for CSV, Excel, PPTX, MD, HTML, JSON, RTF, Image
 
@@ -191,6 +234,15 @@ EXTENSION_HANDLERS = {
     '.txt': extract_text_from_txt,
     # ... etc
 }
+
+# Register image handler in EXTENSION_HANDLERS
+EXTENSION_HANDLERS.update({
+    '.png': extract_text_from_image,
+    '.jpg': extract_text_from_image,
+    '.jpeg': extract_text_from_image,
+    '.tiff': extract_text_from_image,
+    '.bmp': extract_text_from_image,
+})
 
 def process_file_sync(file_path: str, file_extension: str) -> Dict[str, Any]:
     handler = EXTENSION_HANDLERS.get(file_extension)
@@ -252,7 +304,7 @@ async def process_document(file: UploadFile = File(...)):
             "metadata": result["metadata"]
         }
     except Exception as e:
-        logger.error(f"Error processing document: {str(e)}")
+        logger.error(f"Error processing document: {str(e)}", exc_info=True)
         if os.path.exists(temp_file):
             os.remove(temp_file)
         raise HTTPException(status_code=500, detail=str(e))
